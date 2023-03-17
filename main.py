@@ -23,10 +23,19 @@ import pandas
 
 # TODO 1. Create a dictionary in this format:
 data = pandas.read_csv("nato_phonetic_alphabet.csv")
-nato_alpha = {row.letter:row.code for (index, row) in data.iterrows()}
 
-# TODO 2. Create a list of the phonetic code words from a word that the user inputs.
-word = input("Input a word to get the code for: ").upper()
-code_word = [nato_alpha[letter] for letter in word]
+nato_alpha = {row.letter: row.code for (index, row) in data.iterrows()}
 
-print(code_word)
+
+def generate_phonetic():
+    word = input("Input a word to get the code for: ").upper()
+    try:
+        code_word = [nato_alpha[letter] for letter in word]
+    except KeyError:
+        print("Sorry, only letters in the alphabet.")
+        generate_phonetic()
+    else:
+        print(code_word)
+
+
+generate_phonetic()
